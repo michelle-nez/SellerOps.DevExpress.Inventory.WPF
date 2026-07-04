@@ -11,9 +11,13 @@
   <ItemGroup>
     <!-- Reference-only starter code from ChatGPT - not wired into the build yet -->
     <Compile Remove="StarterFiles\**" />
+    <EmbeddedResource Remove="StarterFiles\**" />
     <Page Remove="StarterFiles\**" />
     <None Remove="StarterFiles\**" />
-    <None Include="StarterFiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
