@@ -23,7 +23,7 @@ A small C#/.NET WPF portfolio sample that demonstrates DevExpress GridControl us
 
 This project was created as a focused DevExpress Udemy style learning sample for internal business applications. It is based on marketplace inventory and product listing workflows, which connect to real eCommerce operations experience.
 
-## How I Built This with AI
+## How I Built My Own Course to Learn Programming Concepts
 
 I use AI (ChatGPT, Claude Code) to accelerate learning new tools and patterns — but I don't just paste in generated code, I use my own Knowledgebase to build it. The WPF app, **KnowledgeBaseViewer**, is the app I generated that turns an AI-assisted build session into a self-paced, Udemy-style guided course: sprint checklists, "why this approach" notes, and reference code I follow and actually write myself. Progress is tracked, sections are collapsible, and the course stays in my own knowledge base for later projects that reuse the same patterns. For this project, AI helped scaffold the structure and explain the DevExpress GridControl patterns; I turned that into a guided course and built it sprint by sprint so I can explain every line of it in an interview.
 
