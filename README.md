@@ -11,6 +11,10 @@ A small C#/.NET WPF portfolio sample that demonstrates DevExpress GridControl us
 - MVVM-lite structure with Models and ViewModels folders
 - Clean light admin-style UI
 
+## Architecture
+
+![MVVM architecture: View (MainWindow.xaml) bound to ViewModel (MainViewModel.cs) bound to Model (Product.cs), with RelayCommand.cs and ViewModelBase.cs as supporting infrastructure](screenshots/architecture-diagram.svg)
+
 ## Tech Stack
 
 - C#
