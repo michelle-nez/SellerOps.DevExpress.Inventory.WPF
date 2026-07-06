@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace SellerOps.DevExpress.Inventory.Wpf.ViewModels
 {
-    public sealed class MainViewModel() : ViewModelBase
+    public sealed class MainViewModel : ViewModelBase
     {
 
         private int _newProductNumber = 1000;
