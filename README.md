@@ -2,6 +2,12 @@
 
 A small C#/.NET WPF portfolio sample that demonstrates DevExpress GridControl usage in a business-app style inventory dashboard.
 
+## Screenshot
+
+![Dashboard view with product grid, dashboard metric cards, and DevExpress GridControl](screenshots/Screenshot%20Dashboard.png)
+
+![Grid filtering and grouping in action](screenshots/Screenshot%20Filtering.png)
+
 ## Features
 
 - DevExpress WPF GridControl
@@ -15,6 +21,15 @@ A small C#/.NET WPF portfolio sample that demonstrates DevExpress GridControl us
 
 ![MVVM architecture: View (MainWindow.xaml) bound to ViewModel (MainViewModel.cs) bound to Model (Product.cs), with RelayCommand.cs and ViewModelBase.cs as supporting infrastructure](screenshots/architecture-diagram.svg)
 
+## Project Structure
+
+- `Models/` — data classes (`Product`, `ProductStatus`) with C# 14 field-backed properties for live grid editing
+- `ViewModels/` — MVVM logic: `MainViewModel` (grid data, dashboard metrics, commands), `RelayCommand` (button commands), `ViewModelBase` (INotifyPropertyChanged base)
+- `MainWindow.xaml` / `MainWindow.xaml.cs` — the view: DevExpress GridControl, dashboard cards, and buttons
+- `App.xaml` / `App.xaml.cs` — application startup and DevExpress theme configuration
+
+There's no database layer in this project — product data is in-memory only, seeded in `MainViewModel`'s constructor (see Future Improvements for planned persistence).
+
 ## Tech Stack
 
 - C#
@@ -22,6 +37,14 @@ A small C#/.NET WPF portfolio sample that demonstrates DevExpress GridControl us
 - WPF
 - DevExpress WPF Controls
 - MVVM-style organization
+
+## Run Locally
+
+1. Clone the repo
+2. Open `SellerOps.DevExpress.Inventory.Wpf.sln` in Visual Studio
+3. Restore NuGet packages — requires a DevExpress trial or license with the DevExpress NuGet feed configured (`DevExpress.Wpf.Grid`, `DevExpress.Wpf.Editors`, `DevExpress.Wpf.Core`, `DevExpress.Wpf.Themes.Office2019Colorful`)
+4. Build the solution
+5. Run the app (sample inventory data loads automatically — no database setup needed)
 
 ## Why I Built This
 
