@@ -9,15 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Reference-only starter code from ChatGPT - not wired into the build yet -->
-    <Compile Remove="StarterFiles\**" />
-    <EmbeddedResource Remove="StarterFiles\**" />
-    <Page Remove="StarterFiles\**" />
-    <None Remove="StarterFiles\**" />
+    <Folder Include="screenshots\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="screenshots\" />
+    <PackageReference Include="DevExpress.Wpf.Core" Version="26.1.3" />
+    <PackageReference Include="DevExpress.Wpf.Grid" Version="26.1.3" />
   </ItemGroup>
 
 </Project>
