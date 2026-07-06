@@ -1,24 +1,51 @@
 ﻿using SellerOps.DevExpress.Inventory.Wpf.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SellerOps.DevExpress.Inventory.Wpf.Models
 {
-    public sealed class Product : ViewModelBase
-    {
-        private string _sku = string.Empty;
+    
+        public sealed class Product : ViewModelBase
+        {
+            public string Sku
+            {
+                get;
+                set => SetProperty(ref field, value);
+            } = string.Empty;
 
-        private string _title = string.Empty;
+            public string Title
+            {
+                get;
+                set => SetProperty(ref field, value);
+            } = string.Empty;
 
-        private string _marketplace = string.Empty;
+            public string Marketplace
+            {
+                get;
+                set => SetProperty(ref field, value);
+            } = string.Empty;
 
-        private int _quantity;
+            public int Quantity
+            {
+                get;
+                set => SetProperty(ref field, value);
+            }
 
-        private decimal _price;
+            public decimal Price
+            {
+                get;
+                set => SetProperty(ref field, value);
+            }
 
-        private ProductStatus _status;
+            public ProductStatus Status
+            {
+                get;
+                set => SetProperty(ref field, value);
+            }
 
-        private DateTime _lastUpdated = DateTime.Today;
+            public DateTime LastUpdated
+            {
+                get;
+                set => SetProperty(ref field, value);
+            } = DateTime.Today;
+        }
     }
-}
+
