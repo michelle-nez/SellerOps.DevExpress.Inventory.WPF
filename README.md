@@ -8,6 +8,11 @@ A small C#/.NET WPF portfolio sample that demonstrates DevExpress GridControl us
 
 ![Grid filtering and grouping in action](screenshots/Screenshot%20Filtering.png)
 
+## Currently Working On
+
+- Adding EF Core persistence (SQLite, with optional SQL Server, MySQL, and PostgreSQL support) so inventory data is backed by a real database
+- Deploying against a hosted SQL Server/MySQL database
+
 ## Features
 
 - DevExpress WPF GridControl
@@ -28,8 +33,6 @@ A small C#/.NET WPF portfolio sample that demonstrates DevExpress GridControl us
 - `MainWindow.xaml` / `MainWindow.xaml.cs` — the view: DevExpress GridControl, dashboard cards, and buttons
 - `App.xaml` / `App.xaml.cs` — application startup and DevExpress theme configuration
 
-There's no database layer in this project — product data is in-memory only, seeded in `MainViewModel`'s constructor (see Future Improvements for planned persistence).
-
 ## Tech Stack
 
 - C#
@@ -44,7 +47,7 @@ There's no database layer in this project — product data is in-memory only, se
 2. Open `SellerOps.DevExpress.Inventory.Wpf.sln` in Visual Studio
 3. Restore NuGet packages — requires a DevExpress trial or license with the DevExpress NuGet feed configured (`DevExpress.Wpf.Grid`, `DevExpress.Wpf.Editors`, `DevExpress.Wpf.Core`, `DevExpress.Wpf.Themes.Office2019Colorful`)
 4. Build the solution
-5. Run the app (sample inventory data loads automatically — no database setup needed)
+5. Run the app (sample inventory data loads automatically on first run)
 
 ## Why I Built This
 
@@ -56,7 +59,6 @@ I use AI (ChatGPT, Claude Code) to accelerate learning new tools and patterns �
 
 ## Future Improvements
 
-- SQL Server and Entity Framework persistence
 - CSV import/export
 - Product validation rules
 - DevExpress reporting
