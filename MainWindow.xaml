@@ -119,10 +119,10 @@
                               <dxg:GridControl.TotalSummary>
                                     <dxg:GridSummaryItem FieldName="Quantity"
                                                          SummaryType="Sum"
-                                                         DisplayFormat="Total Units: {0}" />
+                                                         DisplayFormat="{}{0} total" />
                                     <dxg:GridSummaryItem FieldName="Price"
                                                          SummaryType="Average"
-                                                         DisplayFormat="Average Price: {0:C}" />
+                                                         DisplayFormat="Avg {0:C}" />
                               </dxg:GridControl.TotalSummary>
 
                               <dxg:GridControl.Columns>
