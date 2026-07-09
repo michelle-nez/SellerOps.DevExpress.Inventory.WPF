@@ -5,7 +5,10 @@ namespace SellerOps.DevExpress.Inventory.Wpf.Models
     
         public sealed class Product : ViewModelBase
         {
-            public string Sku
+
+        public int Id { get; set; }
+
+        public string Sku
             {
                 get;
                 set => SetProperty(ref field, value);
