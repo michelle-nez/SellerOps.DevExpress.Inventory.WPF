@@ -1,10 +1,17 @@
-﻿using SellerOps.DevExpress.Inventory.Wpf.Models;
+﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using SellerOps.DevExpress.Inventory.Wpf.Data;
+using SellerOps.DevExpress.Inventory.Wpf.Models;
+
 
 namespace SellerOps.DevExpress.Inventory.Wpf.ViewModels
 {
     public sealed class MainViewModel : ViewModelBase
     {
+        
+        private readonly InventoryDbContext _dbContext = new();
 
         private int _newProductNumber = 1000;
 
@@ -34,45 +41,68 @@ namespace SellerOps.DevExpress.Inventory.Wpf.ViewModels
 
         public int ReviewCount => Products.Count(product => product.Status == ProductStatus.NeedsReview);
 
-        public decimal InventoryValue => Products.Sum(product => product.Quantity * product.Price);
+        public decimal InventoryValue => Products.Sum(product => product.Quantity * product.Price);      
+
 
         public MainViewModel()
         {
             AddProductCommand = new RelayCommand(_ => AddNewProduct());
             DeleteSelectedCommand = new RelayCommand(_ => DeleteSelectedProduct(), _ => SelectedProduct is not null);
 
-            AddProduct(new Product
-            {
-                Sku = "WP-CAT6-001",
-                Title = "Cat6 HDMI Wall Plate",
-                Marketplace = "Amazon",
-                Quantity = 24,
-                Price = 18.99m,
-                Status = ProductStatus.Active,
-                LastUpdated = DateTime.Today.AddDays(-1)
-            });
+            LoadOrSeedProducts();
+            
+        }
+        private void LoadOrSeedProducts()
+        {
+            _dbContext.Database.Migrate();
 
-            AddProduct(new Product
-            {
-                Sku = "USB-C-PLATE-002",
-                Title = "USB-C and USB-A Outlet Wall Plate",
-                Marketplace = "Shopify",
-                Quantity = 5,
-                Price = 27.50m,
-                Status = ProductStatus.LowStock,
-                LastUpdated = DateTime.Today.AddDays(-2)
-            });
+            var existingProducts = _dbContext.Products.ToList();
 
-            AddProduct(new Product
+            if (existingProducts.Count == 0)
             {
-                Sku = "FIBER-LC-003",
-                Title = "LC Duplex Fiber Wall Plate",
-                Marketplace = "eBay",
-                Quantity = 11,
-                Price = 22.95m,
-                Status = ProductStatus.NeedsReview,
-                LastUpdated = DateTime.Today.AddDays(-4)
-            });
+                AddProduct(new Product
+                {
+                    Sku = "WP-CAT6-001",
+                    Title = "Cat6 HDMI Wall Plate",
+                    Marketplace = "Amazon",
+                    Quantity = 24,
+                    Price = 18.99m,
+                    Status = ProductStatus.Active,
+                    LastUpdated = DateTime.Today.AddDays(-1)
+                });
+
+                AddProduct(new Product
+                {
+                    Sku = "USB-C-PLATE-002",
+                    Title = "USB-C and USB-A Outlet Wall Plate",
+                    Marketplace = "Shopify",
+                    Quantity = 5,
+                    Price = 27.50m,
+                    Status = ProductStatus.LowStock,
+                    LastUpdated = DateTime.Today.AddDays(-2)
+                });
+
+                AddProduct(new Product
+                {
+                    Sku = "FIBER-LC-003",
+                    Title = "LC Duplex Fiber Wall Plate",
+                    Marketplace = "eBay",
+                    Quantity = 11,
+                    Price = 22.95m,
+                    Status = ProductStatus.NeedsReview,
+                    LastUpdated = DateTime.Today.AddDays(-4)
+                });
+            }
+            else
+            {
+                foreach (var product in existingProducts)
+                {
+                    TrackProduct(product);
+                }
+
+                RefreshMetrics();
+            }
+
         }
 
         private void AddNewProduct()
@@ -89,14 +119,16 @@ namespace SellerOps.DevExpress.Inventory.Wpf.ViewModels
                 Status = ProductStatus.Draft,
                 LastUpdated = DateTime.Today
             });
-        }
-
+        }        
+      
         private void DeleteSelectedProduct()
         {
             if (SelectedProduct is null)
             {
                 return;
             }
+            _dbContext.Products.Remove(SelectedProduct);
+            _dbContext.SaveChanges();
 
             Products.Remove(SelectedProduct);
             SelectedProduct = null;
@@ -105,9 +137,23 @@ namespace SellerOps.DevExpress.Inventory.Wpf.ViewModels
 
         private void AddProduct(Product product)
         {
-            product.PropertyChanged += (_, _) => RefreshMetrics();
-            Products.Add(product);
+            _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
+
+            TrackProduct(product);
             RefreshMetrics();
+        }
+      
+        private void TrackProduct(Product product)
+        {
+          
+            product.PropertyChanged += (_, _) =>
+            {
+                RefreshMetrics();
+                _dbContext.SaveChanges();
+            };
+
+            Products.Add(product);
         }
 
         private void RefreshMetrics()
